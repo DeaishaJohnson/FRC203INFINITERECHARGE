@@ -7,63 +7,35 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.drive.MecanumDrive;
-
 
 public class DriveSubsystem extends SubsystemBase {
-
-public static WPI_VictorSPX rightFront = new WPI_VictorSPX(DriveConstants.krightFrontMotor);
-public static WPI_VictorSPX rightBack = new WPI_VictorSPX(DriveConstants.krightBackMotor);
-public static WPI_VictorSPX leftFront = new WPI_VictorSPX(DriveConstants.kleftFrontMotor);
-public static WPI_VictorSPX leftBack = new WPI_VictorSPX(DriveConstants.kleftBackMotor);
-
-private static MecanumDrive mecanumDrive = new MecanumDrive(leftFront, leftBack, rightFront, rightBack);
-
-/*TANK DRIVE ------------
-
-private static SpeedControllerGroup left_c = new SpeedControllerGroup(leftFront, leftBack);
-private static SpeedControllerGroup right_c = new SpeedControllerGroup(rightFront, rightBack);
-private static DifferentialDrive m_drive = new DifferentialDrive(left_c, right_c);
-
-*/
-
-
-
+  /**
+   * Creates a new DriveSubsystem.
+   */
+  private static WPI_VictorSPX leftOne = new WPI_VictorSPX(DriveConstants.kleftOne);
+  private static WPI_VictorSPX leftTwo = new WPI_VictorSPX(DriveConstants.kleftTwo);
+  private static WPI_VictorSPX rightOne = new WPI_VictorSPX(DriveConstants.krightOne);
+  private static WPI_VictorSPX rightTwo = new WPI_VictorSPX(DriveConstants.krightTwo);
+  
+  private static MecanumDrive mecanumDrive = new MecanumDrive(leftOne, leftTwo, rightOne, rightTwo);
+  
   public DriveSubsystem() {
-
-
-    
   }
 
-public void driveCartesian(double ySpeed, double xSpeed, double zRotation){
+  public void driveCartesian (double ySpeed, double xSpeed, double zRotation){
+    mecanumDrive.driveCartesian(ySpeed, -xSpeed, zRotation);
+  }
 
-mecanumDrive.driveCartesian(ySpeed, -xSpeed, zRotation);
-
-}
-
-/*TANK DRIVE ------------
-public void manualDrive(double xSpeed, double zRotation){
-
-m_drive.arcadeDrive(xSpeed, zRotation);
-
-}
-*/
-public void setMaxOutput(double maxOutput){
-//m_drive.setMaxOutput(maxOutput); 
-
-mecanumDrive.setMaxOutput(maxOutput);
-
-}
-
-
-
+  public void setMaxOutput (double maxOutput){
+    mecanumDrive.setMaxOutput(maxOutput);
+  }
   @Override
   public void periodic() {
-    
     // This method will be called once per scheduler run
   }
 }

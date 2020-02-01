@@ -10,35 +10,34 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.FlywheelConstants;
+import frc.robot.Constants.TurretConstants;
 
-public class FlywheelSubsystem extends SubsystemBase {
+public class TurretSubsystem extends SubsystemBase {
   /**
-   * Creates a new FlywheelSubsystem.
+   * Creates a new TurretSubsystem.
    */
-  public static WPI_VictorSPX flywheelOne = new WPI_VictorSPX(FlywheelConstants.kflywheelOne);
-  public static WPI_VictorSPX flywheelTwo = new WPI_VictorSPX(FlywheelConstants.kflywheelTwo);
+
+  public static WPI_VictorSPX turretOne = new WPI_VictorSPX(TurretConstants.kturretOne);
+  public static WPI_VictorSPX turretTwo = new WPI_VictorSPX(TurretConstants.kturretTwo);
+  public TurretSubsystem() {
+
+  }
+
+  public void turretRotateLeft (double turn){
+    turretOne.set(turn);
+    turretTwo.set(turn);
+  }
+
+  public void turretRotateRight (double turn) {
+    turretOne.set(-turn);  
+    turretTwo.set(-turn); 
+  }
   
-  public FlywheelSubsystem() {
-
+  public void turretStop (){
+    turretOne.set(0);
+    turretTwo.set(0);
   }
 
-  public void forwardFlywheel (double speed){
-    flywheelOne.set(speed);
-    flywheelTwo.set(speed);
-  }
-
-  public void reverseFlywheel (double speed){
-    flywheelOne.set(-speed);
-    flywheelTwo.set(-speed);
-  }
-
-  public void stopFlywheel (){
-    flywheelOne.set(0);
-    flywheelTwo.set(0);
-  }
-
-  
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
